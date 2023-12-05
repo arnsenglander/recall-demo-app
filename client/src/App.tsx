@@ -1,35 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Sidebar from './components/SideBar/Sidebar';
+import TranscriptionView from './components/views/Transcription/Transcription';
+import { Meeting } from './types/meeting';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
+  
+  // TODO: Hook for transcriptions
+
+  const meetings: Meeting[] = [
+    {
+      id: '1',
+      title: 'Meeting 1',
+      actionItems: ['Action item 1', 'Action item 2'],
+    },
+    {
+      id: '2',
+      title: 'Meeting 2',
+      actionItems: ['Action item 1', 'Action item 2'],
+    },
+    {
+      id: '3',
+      title: 'Meeting 3',
+      actionItems: ['Action item 1', 'Action item 2'],
+    },
+  ]
+
+  const handleSelectMeeting = (meeting: Meeting) => {
+    setSelectedMeeting(meeting);
+    // Fetch meeting details (transcription, action items, etc.) based on the selected meeting
+    // You might use state management like Redux or context API for handling data fetching
+  };
+
+  const handleSendBot = () => {
+    // Implement logic to send bot to the selected meeting
+    console.log('Bot sent to meeting:', selectedMeeting);
+    // TODO: Bot hook
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div >
+      <Sidebar
+        meetings={meetings} 
+        onSelectMeeting={handleSelectMeeting} 
+        onSendBot={handleSendBot} 
+      />
+      <div className="content">
+        {selectedMeeting ? (
+          <TranscriptionView meeting={selectedMeeting} transcription="This is a transcription" />
+        ) : (
+          <p>Select a meeting from the sidebar</p>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default App
+export default App;
