@@ -1,7 +1,5 @@
 import { Sequelize } from "sequelize";
 
-const DATABASE_URL = process.env.DATABASE_URL;
-
 // If you want to use a different database, you can set the DATABASE_URL 
 // environment variable.
 // 
@@ -14,10 +12,15 @@ const DATABASE_URL = process.env.DATABASE_URL;
 // For more information please visit:
 // https://sequelize.org/master/manual/dialects.html
 //
-const sequelize = new Sequelize(DATABASE_URL ?? 'sqlite::memory:', {
-    dialect: 'sqlite', // or 'mysql', 'postgres', 'mariadb', etc.
-    // logging: false,
-    // models: [__dirname + './../models'] // or [Player, Team],
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './data/database.sqlite'
 });
+
+// Option 2: Specify the connection string
+// const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    // dialect: 'postgres', // or 'mysql', 'sqlite', 'mariadb', etc.
+    // logging: false,
+// });
 
 export default sequelize;
