@@ -16,7 +16,7 @@ export const getMeetingTranscript: RequestHandler = async (req, res) => {
       return;
     }
 
-    const transcript = await recallApi.getTranscript(meeting.recall_bot_id)
+    const transcript = await recallApi.getTranscriptionData(meeting.recall_bot_id)
     res.json({ transcript })
   } catch(e) {
     console.log('Error getting bot transcript:', e)

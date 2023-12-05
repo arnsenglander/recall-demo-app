@@ -1,3 +1,4 @@
+import { RawTranscriptionData } from './../../types/index';
 import fetch from 'node-fetch'
 
 class RecallApi {
@@ -34,7 +35,7 @@ class RecallApi {
       return data.id
   }
 
-  async getTranscript(botId: string): Promise<string> {
+  async getTranscriptionData(botId: string): Promise<RawTranscriptionData> {
   
     const API_KEY = process.env.RECALL_API_KEY;
     if (!API_KEY) throw new Error('RECALL_API_KEY not set');
@@ -50,9 +51,9 @@ class RecallApi {
 
     return fetch(url, options)
       .then(async (res) => {
-        const data = await res.json()
+        const data = await res.json() as RawTranscriptionData;
         console.log('got bot transcript:', data)
-        return 'TODO: replace this transcript placeholder'
+        return data;
       })
       .catch(e => {
         const err = `Error getting bot transcript: ${e}`
