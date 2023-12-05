@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { Cross2Icon } from '@radix-ui/react-icons';
 import './styles.css';
 
 interface NewBotModalProps {
@@ -34,7 +33,11 @@ const NewBotModal = ({ open, onOpenChange, onSendBot }: NewBotModalProps) => (
             <button className="Button grey">Cancel</button>
             </Dialog.Close>
           <Dialog.Close asChild>
-            <button className="Button">Confirm</button>
+            <button className="Button" 
+                onClick={() => {
+                    onSendBot();
+                }}
+            >Confirm</button>
           </Dialog.Close>
         </div>
       </Dialog.Content>
