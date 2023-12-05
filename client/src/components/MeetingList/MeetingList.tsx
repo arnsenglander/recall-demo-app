@@ -9,16 +9,20 @@ interface MeetingListProps {
     onSelectMeeting: (meeting: Meeting) => void;
 }
 
-const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => (
+const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
+
+  return (
   <ScrollArea.Root className="ScrollAreaRoot">
     <ScrollArea.Viewport className="ScrollAreaViewport">
       {meetings.map((meeting, index) => (
         <div
           key={index}
           className="meetingItem"
-          onClick={() => onSelectMeeting(meeting)}
+          onClick={() => {
+            onSelectMeeting(meeting);
+          }}
         >
-          <CalendarIcon height={12} width={20} style={{ marginRight: 10 }} />
+          <CalendarIcon height={12} width={20} style={{ marginRight: 5 }} />
           <div>{meeting.title}</div>
         </div>
       ))}
@@ -31,6 +35,7 @@ const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => (
     </ScrollArea.Scrollbar>
     <ScrollArea.Corner className="ScrollAreaCorner" />
   </ScrollArea.Root>
-);
+  );
+};
 
 export default MeetingList;

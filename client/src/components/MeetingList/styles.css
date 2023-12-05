@@ -6,7 +6,6 @@
   height: 100%;
   border-radius: 4px;
   overflow: hidden;
-  background-color: white;
   --scrollbar-size: 10px;
 }
 
@@ -47,20 +46,24 @@
 }
 
 .meetingItem {
-  margin: 2px 2px;
   padding: 0 8px;
+  margin: 2px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 1px solid var(--mauve-4);
+  border: 1px solid var(--mauve-6);
   border-radius: 4px;
-  height: 25px;
+  height: 35px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .meetingItem:hover {
   background-color: var(--mauve-6);
+}
+
+.meetingItem:active {
+  background-color: var(--mauve-7);
 }
 
 .ScrollAreaThumb::before {
