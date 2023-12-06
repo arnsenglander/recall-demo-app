@@ -2,19 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from './components/SideBar/Sidebar';
 import TranscriptionView from './components/views/Transcription/Transcription';
 import { Bot, CreateBotRequest } from '../../types';
-import { Meeting } from './types/types';
 import './App.css';
-import useMeetings from './hooks/meetings';
 import useTranscript from './hooks/transcript';
 import { FileTextIcon } from '@radix-ui/react-icons';
 import useBots from './hooks/bots';
 
 const App: React.FC = () => {
   const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
-  const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
 
   const { bots, loading: botsLoading, error: botsError } = useBots();
-  const { meetings, loading: meetingsLoading, error: meetingsError } = useMeetings();
   const { transcript, loading: transcriptLoading, error: transcriptError, fetchTranscript } = useTranscript();
   
   useEffect(() => {
@@ -31,8 +27,8 @@ const App: React.FC = () => {
     await createBot(bot);
   };
 
-  const loading = meetingsLoading;
-  const error = meetingsError || transcriptError;
+  const loading = botsLoading || transcriptLoading;
+  const error = botsError || transcriptError;
 
   return (
     <div>
@@ -57,9 +53,9 @@ const App: React.FC = () => {
               <div className="welcome">
                 <FileTextIcon height={32} width={32} />
                 <p>
-                  {meetings.length === 0 ?
+                  {bots.length === 0 ?
                     'Create your first bot to get started.' :
-                    'Select a meeting to view the transcript.'}
+                    'Select a bot to view the transcript.'}
                 </p>
               </div>
             )}
