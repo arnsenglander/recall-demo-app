@@ -6,7 +6,3 @@ export interface Meeting {
     createdAt: string;
 }
 
-export interface CreateBotRequest {
-    meeting_url: string;
-    name?: string;
-}
