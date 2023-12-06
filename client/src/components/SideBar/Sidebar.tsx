@@ -1,6 +1,6 @@
 import React from 'react';
 import MeetingList from '../MeetingList/MeetingList';
-import { Meeting } from '../../types/meeting';
+import { CreateBotRequest, Meeting } from '../../types/types';
 import './styles.css';
 import NewBotModal from '../NewBotModal/NewBotModal';
 import { Separator } from '@radix-ui/react-separator';
@@ -8,7 +8,7 @@ import { Separator } from '@radix-ui/react-separator';
 interface SidebarProps {
   meetings: Meeting[]; // Array of meeting titles
   onSelectMeeting: (meeting: Meeting) => void;
-  onSendBot: () => void;
+  onSendBot: (bot: CreateBotRequest) => Promise<void>;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ meetings, onSelectMeeting, onSendBot }) => {
@@ -29,7 +29,8 @@ const Sidebar: React.FC<SidebarProps> = ({ meetings, onSelectMeeting, onSendBot 
       
       <NewBotModal 
         open={modalOpen} onOpenChange={() => setModalOpen(!modalOpen)} 
-        onSendBot={() => onSendBot()} />
+        onSendBot={onSendBot} 
+      />
     </aside>
   );
 };
