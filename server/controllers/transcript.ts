@@ -1,24 +1,15 @@
 import { RequestHandler } from "express";
 import RecallApi from "../services/recall.ts";
-import Meeting from "../models/meeting.ts";
 
-export const getMeetingTranscript: RequestHandler = async (req, res) => {
+export const getTranscript: RequestHandler = async (req, res) => {
   
   try {
     const recallApi = new RecallApi(process.env.RECALL_API_KEY ?? '');
 
-    // Find the Meeting in the database based on the meeting_id.
-    const { meetingId } = req.query;
-    const meeting = await Meeting.findOne({ where: { id: meetingId } });
-    
-    if (!meeting) {
-      res.status(404).json({ message: 'Meeting not found' });
-      return;
-    }
-
-    console.log('Getting transcript for meeting:', meeting)
-
-    const transcript = await recallApi.getTranscriptionData(meeting.recall_bot_id)
+    const { botId } = req.params;
+   
+    console.log('getting bot transcript for bot:', botId)
+    const transcript = await recallApi.getTranscriptionData(botId)
     res.json({ transcript })
   } catch(e) {
     console.log('Error getting bot transcript:', e)

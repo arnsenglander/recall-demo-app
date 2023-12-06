@@ -1,4 +1,6 @@
-import { RawTranscriptionData } from './../../types';
+import { AssemblyAiAsyncTranscriptionOptions, IntelligenceResultsResponse, Job, ListJobsOpts, ListJobsResponse } from '../../types/intelligence.ts';
+import { Bot, CreateBotRequest } from './../../types/bot.ts';
+import { RawTranscriptionData } from './../../types/index.ts';
 import fetch from 'node-fetch'
 
 class RecallApi {
@@ -9,31 +11,178 @@ class RecallApi {
       if (!apiKey) throw new Error('API key is required')
   }
 
-  async sendBotToMeeting(meeting_url: string, name: string): Promise<string> {
+  async sendBotToMeeting(meeting_url: string, name: string): Promise<Bot> {
+    
+    const body: CreateBotRequest = {
+      meeting_url,
+      name,
+      transcription_options: {
+        // Default to AssemblyAI
+        provider: 'assembly_ai',
+      },
+    }
   
-      const resp = await fetch(this.BASE_URL+ '/bot', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token ' + this.apiKey,
-        },
-        body: JSON.stringify({
-          meeting_url,
-          name: name ?? 'Note Taker Bot',
-          transcription_options: { provider: TranscriptionOptions.Default },
-        })
-      })
+    const resp = await fetch(this.BASE_URL+ '/bot', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+      body: JSON.stringify(body),
+    })
 
-      if (!resp.ok) {
-        const data = await resp.json() 
-        console.error('Error sending bot to meeting:', data)
-        throw new Error('Error sending bot to meeting')
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error sending bot to meeting:', data)
+      throw new Error('Error sending bot to meeting')
+    }
+
+    const data = await resp.json() as Bot
+    console.log('send bot response:', data)
+
+    return data
+  }
+
+  // Pagination is supported in the Recall API for large number of bots.
+  async listBots(): Promise<Bot[]> {
+    const resp = await fetch(this.BASE_URL+ '/bot', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
+
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error listing bots:', data)
+      throw new Error('Error listing bots')
+    }
+
+    const data = await resp.json() as Bot[]
+    console.log('got bots:', data)
+    
+    return data
+  }
+
+  async getBot(botId: string): Promise<Bot> {
+    const resp = await fetch(this.BASE_URL+ `/bot/${botId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
+
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error getting bot:', data)
+      throw new Error('Error getting bot')
+    }
+
+    const data = await resp.json() as Bot
+    console.log('got bot:', data)
+    return data
+  }
+
+  /**
+   * Asynchronously analyze the media of a bot using external AI providers.
+   * Default: AssemblyAI
+   * @param botId ID of the bot for which to get the media analysis
+   * @param opts (optional) Options for the media analysis (e.g. language, summarization, sentiment_analysis, entity_detection)
+   */
+  async analyzeBotMedia(botId: string, opts?: AssemblyAiAsyncTranscriptionOptions): Promise<void> {
+    if (!opts) {
+      opts = {
+        summarization: true,
+        sentiment_analysis: true,
+        entity_detection: true,
       }
+    }
 
-      const data = await resp.json() as CreateBotResponse
-      console.log('response:', data)
+    const resp = await fetch(this.BASE_URL+ `/bot/${botId}/analyze`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
 
-      return data.id
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error analyzing bot media:', data)
+      throw new Error('Error analyzing bot media')
+    }
+
+    const data = await resp.json() as any
+    console.log('bot media analysis response:', data)
+  }
+
+  async getBotIntelligence(botId: string): Promise<IntelligenceResultsResponse> {
+    const resp = await fetch(this.BASE_URL+ `/bot/${botId}/intelligence`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
+
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error getting bot intelligence:', data)
+      throw new Error('Error getting bot intelligence')
+    }
+
+    const data = await resp.json() as IntelligenceResultsResponse
+    console.log('got intelligence results:', data)
+    return data
+  }
+
+  /**
+   * List all analysis jobs.
+   * @param opts (optional) Object containing options for filtering the list of jobs.
+   */
+  async listJobs(opts?: ListJobsOpts): Promise<ListJobsResponse> {
+    let url = this.BASE_URL + '/analysis/job'
+
+    for (const key in opts) {
+      if (opts.hasOwnProperty(key)) {
+        const val = opts[key as keyof ListJobsOpts];
+        url += `?${key}=${val}`
+      }
+    }
+    
+    const resp = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
+
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error listing jobs:', data)
+      throw new Error('Error listing jobs')
+    }
+
+    const data = await resp.json() as ListJobsResponse
+    console.log('got jobs:', data)
+    return data
+  }
+
+  async getJob(id: string): Promise<Job> {
+    const resp = await fetch(this.BASE_URL + `/analysis/job/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token ' + this.apiKey,
+      },
+    })
+
+    if (!resp.ok) {
+      const data = await resp.json() 
+      console.error('Error getting job:', data)
+      throw new Error('Error getting job')
+    }
+
+    const data = await resp.json() as Job
+    console.log('got job:', data)
+    return data
   }
 
   async getTranscriptionData(botId: string): Promise<RawTranscriptionData> {
@@ -60,38 +209,7 @@ class RecallApi {
         const err = `Error getting bot transcript: ${e}`
         throw new Error(err)
       });
-  };
-}
-
-type CreateBotResponse = {
-  id: string;
-  video_url: string | null;
-  status_changes: {
-    code: string;
-    message: string | null;
-    created_at: string;
-    sub_code: string | null;
-  }[];
-  meeting_metadata: any | null;
-  meeting_participants: any[];
-  meeting_url: {
-    meeting_id: string;
-    meeting_password: string;
-    platform: string;
-  };
-  join_at: string | null;
-  calendar_meetings: any[];
-  recording: string | null;
-  recordings: string[];
-};
-
-enum TranscriptionOptions {
-  Default = 'default',
-  // AssemblyAI = 'assembly_ai',
-  // DeepGram = 'deepgram',
-  // Gladia = 'gladia',
-  // Rev = 'rev',
-  // AWSTranscribe = 'aws_transcribe',
+  }
 }
 
 export default RecallApi
