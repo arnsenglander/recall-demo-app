@@ -20,6 +20,7 @@ class RecallApi {
         body: JSON.stringify({
           meeting_url,
           name: name ?? 'Note Taker Bot',
+          transcription_options: { provider: TranscriptionOptions.Default },
         })
       })
 
@@ -84,5 +85,13 @@ type CreateBotResponse = {
   recordings: string[];
 };
 
+enum TranscriptionOptions {
+  Default = 'default',
+  // AssemblyAI = 'assembly_ai',
+  // DeepGram = 'deepgram',
+  // Gladia = 'gladia',
+  // Rev = 'rev',
+  // AWSTranscribe = 'aws_transcribe',
+}
 
 export default RecallApi

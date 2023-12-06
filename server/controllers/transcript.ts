@@ -8,13 +8,15 @@ export const getMeetingTranscript: RequestHandler = async (req, res) => {
     const recallApi = new RecallApi(process.env.RECALL_API_KEY ?? '');
 
     // Find the Meeting in the database based on the meeting_id.
-    const { meeting_id } = req.query;
-    const meeting = await Meeting.findOne({ where: { id: meeting_id } });
+    const { meetingId } = req.query;
+    const meeting = await Meeting.findOne({ where: { id: meetingId } });
     
     if (!meeting) {
       res.status(404).json({ message: 'Meeting not found' });
       return;
     }
+
+    console.log('Getting transcript for meeting:', meeting)
 
     const transcript = await recallApi.getTranscriptionData(meeting.recall_bot_id)
     res.json({ transcript })
