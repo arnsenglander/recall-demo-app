@@ -25,6 +25,9 @@ export class Transcription {
         return this.segments;
     }
 
+    /**
+     * The entire transcript, as a string.
+     */
     asString(): string {
         let transcriptionString = "";
         this.segments.forEach((segment) => {
@@ -37,15 +40,19 @@ export class Transcription {
         this.segments.push(segment);
     }
 
-    // The total duration of the transcription, in seconds.
+    /**
+     * The total duration of the transcription, in seconds.
+     */
     duration(): number {
         return this.segments.reduce((total, segment) => {
             return total + segment.duration();
         }, 0);
     }
 
-    // The total duration of the transcription as a formatted string,
-    // in the format MM minutes SS seconds.
+    /**
+     * The total duration of the transcription as a formatted string,
+     * in the format `M`m `SS`s.
+     */
     durationFormatted(): string {
         const minutes = Math.floor(this.duration() / 60);
         const seconds = Math.floor(this.duration() % 60);
@@ -61,28 +68,39 @@ export class TranscriptionSegment {
         return this.data.speaker;
     }
 
-    // The start time of the first word in the segment, in the 
-    // format MM:SS.
+    /**
+     * The start time of the first word in the segment, in the
+     * form MM:SS.
+     */
     startFormatted(): string {
         return formatTime(this.start());
     }
 
 
-    // The start time of the first word in the segment, in seconds.
+    /**
+     * The start time of the first word in the segment, in seconds.
+     */
     start(): number {
         return this.data.words[0].start_timestamp;
     }
 
-    // The end time of the last word in the segment, in seconds.
+    /**
+     * The end time of the last word in the segment, in seconds.
+     */
     end(): number {
         return this.data.words[this.data.words.length - 1].end_timestamp;
     }
 
-    // The total duration of the transcription, in seconds.
+    /**
+     * The duration of the segment, in seconds.
+     */
     duration(): number {
         return this.end() - this.start();
     }
 
+    /**
+     * The full transcript of this segment, as a string.
+     */
     asString(): string {
         const chronologicalWords = this.data.words.sort((a, b) => {
             return a.start_timestamp - b.start_timestamp;
@@ -97,14 +115,15 @@ export class TranscriptionSegment {
     }
 }
 
-
+/**
+ * Format a time as a string in the form: MM:SS
+ * @param time The time in seconds.
+ * @returns A formatted time string.
+ */
 function formatTime(time: number): string {
     const minutes = Math.floor(time / 60);
     let seconds = Math.floor(time % 60);
 
-    console.log('time', time)
-
-    // Make sure to zero-pad the seconds.
     if (seconds < 10) {
         return `${minutes}:0${seconds}`;
     }
