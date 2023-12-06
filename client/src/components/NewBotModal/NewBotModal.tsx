@@ -16,9 +16,6 @@ const NewBotModal = ({ open, onOpenChange, onSendBot }: NewBotModalProps) => {
       name: (document.getElementById('name') as HTMLInputElement).value,
      }).then(() => {
       onOpenChange();
-      // reset input values
-      (document.getElementById('meeting_url') as HTMLInputElement).value = '';
-      (document.getElementById('name') as HTMLInputElement).value = '';
     });
   };
 
