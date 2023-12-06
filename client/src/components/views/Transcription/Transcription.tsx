@@ -31,9 +31,21 @@ const TranscriptionView: React.FC<TranscriptViewProps> = ({ bot, transcription }
 };
 
 const TranscriptViewHeader: React.FC<TranscriptViewProps> = ({ bot, transcription }) => {
+
+  const getPlatformLabel = (platform: string) => {
+    switch (platform) {
+      case 'google_meet':
+        return 'Google Meet';
+      case 'zoom':
+        return 'Zoom';
+      default:
+        return platform;
+    }
+  }
+
   return (
     <div className="transcriptViewHeader">
-      <div className="transcriptViewHeaderTitle">Meeting Transcript</div>
+      <div className="transcriptViewHeaderTitle">{getPlatformLabel(bot.meeting_url.platform)} Call</div>
       <div>{(new Date(bot.join_at)).toLocaleString('en-US', {
         weekday: 'long',
         year: 'numeric',
@@ -55,7 +67,7 @@ const TranscriptSegmentSection = ({ segment }: {segment: TranscriptionSegment}) 
   return (
     <div className="transcriptSegment">
       <div className="transcriptSegmentStamp">
-        <div>{segment.startFormatted()}</div>
+        <div>[{segment.startFormatted()}]</div>
         <div>{segment.speaker()}</div>
       </div>
       

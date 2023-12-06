@@ -6,18 +6,21 @@
   height: 100vh;
   width: 100%;
   border-radius: 2px;
-  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .transcriptViewHeader {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  height: 60px;
+  width: 100%;
   font-size: 14px;
   font-weight: 500;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
-  height: 80px;
-  width: 100%;
   border-bottom: 1px solid grey;
 }
 
@@ -30,6 +33,7 @@
 .transcriptBody {
   display: flex;
   flex-direction: column;
+  gap: 4px;
   margin: 1rem auto;
   max-width: 800px;
 }
@@ -48,8 +52,10 @@
   display: flex;
   flex-direction: row;
   gap: 8px;
-  padding: 8px;
-  margin-right: 8px;
+  margin-top: 16px;
+  margin-left: 8px;
+  height: 100%;
+  min-width: 150px;
   font-size: 13px;
   font-weight: 600;
   color: #424242;
@@ -59,7 +65,7 @@
   font-size: 15px;
   font-weight: 400;
   color: #424242;
-  margin-left: 8px;
+  padding: 8px;
 }
 
 .transcriptEndStamp {
