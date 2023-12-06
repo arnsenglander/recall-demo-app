@@ -1,6 +1,8 @@
 @import "@radix-ui/colors/black-alpha.css";
 @import "@radix-ui/colors/green.css";
 @import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/violet.css";
 
 /* reset */
 button,
@@ -98,8 +100,13 @@ input {
   box-shadow: 0 0 0 1px var(--violet-7);
   height: 35px;
 }
+
 .Input:focus {
   box-shadow: 0 0 0 2px var(--violet-8);
+}
+
+.FormLabel[data-invalid] {
+  color: var(--red-11);
 }
 
 @keyframes overlayShow {
@@ -120,4 +127,65 @@ input {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+.FormRoot {
+  width: 260px;
+}
+
+.FormField {
+  display: grid;
+  margin-bottom: 10px;
+}
+
+.FormLabel {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  flex: 0.4;
+  width: 90px;
+  color: var(--violet-11);
+}
+
+.FormMessage {
+  font-size: 13px;
+  color: var(--red-11);
+  opacity: 0.8;
+  justify-self: flex-end;
+  margin-top: 5px;
+}
+
+.Input,
+.Textarea {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 15px;
+  color: var(--black-a9);
+}
+.Input:hover,
+.Textarea:hover {
+  box-shadow: 0 0 0 1px black;
+}
+.Input:focus,
+.Textarea:focus {
+  box-shadow: 0 0 0 2px black;
+}
+.Input::selection,
+.Textarea::selection {
+  background-color: var(--black-a9);
+  color: white;
+}
+
+.Input {
+  padding: 0 10px;
+  height: 35px;
+  line-height: 1;
+}
+
+.Textarea {
+  resize: none;
+  padding: 10px;
 }
