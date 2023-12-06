@@ -3,14 +3,22 @@ import sequelize from "../db/config.ts";
 
 
 class Meeting extends Model {
-  id!: string;
-  recall_bot_id!: string;
-  meeting_url!: string;
+  get id() {
+    return this.getDataValue('id');
+  }
+
+  get meeting_url() {
+    return this.getDataValue('meeting_url');
+  }
+
+  get recall_bot_id() {
+    return this.getDataValue('recall_bot_id');
+  }
 }
 
 Meeting.init({
   id: {
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
     primaryKey: true,
   },
   recall_bot_id: {
