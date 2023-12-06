@@ -20,15 +20,13 @@ export const useTranscript = (): TranscriptData => {
       return;
     }
 
-    console.log('fetching transcript for meetingId:', meetingId)
-
     try {
       const response = await fetch(`/api/transcript?meetingId=${meetingId}`);
-      const data = await response.json() as RawTranscriptionData;
-      const transcript = Transcriber.transcribe(data);
-      console.log('transcript:', transcript)
+      const data = await response.json() as { transcript: RawTranscriptionData }
+      const transcript = Transcriber.transcribe(data.transcript);
       setTranscript(transcript);
     } catch (error) {
+      console.error(error)
       setError('Error fetching transcript');
     } finally {
       setLoading(false);
