@@ -12,9 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.post('/send-bot', sendBotHandler);
+app.post('/bot', sendBotHandler);
 app.get('/meetings', listMeetings);
-app.get('/transcript/:meeting_id', getMeetingTranscript);
+app.get('/transcript', getMeetingTranscript);
 
 // Initialize the database connection and sync models
 (async () => {
