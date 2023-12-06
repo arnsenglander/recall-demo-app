@@ -5,9 +5,7 @@ import sequelize from "../db/config.ts";
 class Meeting extends Model {
   id!: string;
   recall_bot_id!: string;
-  date!: string;
-  duration!: number;
-  transcript!: string;
+  meeting_url!: string;
 }
 
 Meeting.init({
@@ -17,17 +15,9 @@ Meeting.init({
   },
   recall_bot_id: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
-  date: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  duration: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  transcript: {
+  meeting_url: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -35,7 +25,6 @@ Meeting.init({
   sequelize,
   modelName: 'Meeting',
   tableName: 'meetings',
-  timestamps: false,
 });
 
 export default Meeting;
