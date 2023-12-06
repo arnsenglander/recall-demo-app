@@ -5,6 +5,7 @@ import { CreateBotRequest, Meeting } from './types/types';
 import './App.css';
 import useMeetings from './hooks/meetings';
 import useTranscript from './hooks/transcript';
+import { FileTextIcon } from '@radix-ui/react-icons';
 
 const App: React.FC = () => {
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
@@ -46,14 +47,14 @@ const App: React.FC = () => {
                 <p>No transcription found</p>
               )
             ) : (
-              <p
-                style={
-                  {
-                     fontSize: '1rem',  
-                     color: 'gray',
-                  }
-                }
-              >Select a meeting from the sidebar.</p>
+              <div className="welcome">
+                <FileTextIcon height={32} width={32} />
+                <p>
+                  {meetings.length === 0 ?
+                    'Create your first bot to get started.' :
+                    'Select a meeting to view the transcript.'}
+                </p>
+              </div>
             )}
           </div>
           </div>
@@ -64,7 +65,6 @@ const App: React.FC = () => {
 };
 
 async function createBot(data: CreateBotRequest) {
-  console.log('creating bot with data:', data)
   const response = await fetch('/api/bot', {
     method: 'POST',
     headers: {
