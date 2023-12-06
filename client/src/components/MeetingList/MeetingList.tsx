@@ -1,6 +1,6 @@
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './styles.css';
-import { Meeting } from '../../types/meeting';
+import { Meeting } from '../../types/types';
 import { CalendarIcon } from '@radix-ui/react-icons';
 
 
@@ -10,6 +10,17 @@ interface MeetingListProps {
 }
 
 const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
+
+  const formatDateString = (dateString: string) => {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
+  }
 
   return (
   <ScrollArea.Root className="ScrollAreaRoot">
@@ -23,7 +34,7 @@ const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
           }}
         >
           <CalendarIcon height={12} width={20} style={{ marginRight: 5 }} />
-          <div>{meeting.title}</div>
+          <div>{formatDateString(meeting.createdAt)}</div>
         </div>
       ))}
     </ScrollArea.Viewport>
