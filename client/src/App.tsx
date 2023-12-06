@@ -10,7 +10,7 @@ import useBots from './hooks/bots';
 const App: React.FC = () => {
   const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
 
-  const { bots, loading: botsLoading, error: botsError } = useBots();
+  const { bots, loading: botsLoading, error: botsError, refetch } = useBots();
   const { transcript, loading: transcriptLoading, error: transcriptError, fetchTranscript } = useTranscript();
   
   useEffect(() => {
@@ -24,10 +24,10 @@ const App: React.FC = () => {
   };
 
   const handleSendBot = async (bot: CreateBotRequest) => {
-    await createBot(bot);
+    await createBot(bot).then(() => refetch())
   };
 
-  const loading = botsLoading || transcriptLoading;
+  const loading = botsLoading;
   const error = botsError || transcriptError;
 
   return (
@@ -68,7 +68,7 @@ const App: React.FC = () => {
 };
 
 async function createBot(data: CreateBotRequest) {
-  const response = await fetch('/api/bot', {
+  const response = await fetch('/api/bots', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
