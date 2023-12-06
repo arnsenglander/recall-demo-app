@@ -11,9 +11,9 @@
 }
 
 .sidebarTitle {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  margin: 1rem 0.5rem 0;
 }
 
 .sidebarSeparator {
@@ -25,14 +25,13 @@
 .sidebarList {
   display: flex;
   flex-direction: column;
+  margin: 0.5rem;
   height: 100%;
-  padding: 0.5rem 0.5rem;
+  overflow-y: auto;
 }
 
 .newMeetingButton {
-  margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0.5rem;
   border-radius: 0.5rem;
   color: #eee;
   font-size: 0.9rem;

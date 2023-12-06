@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ bots, onSelectedBot, onSendBot }) => 
 
   return (
     <aside className="sidebar">
-      <div className="sidebarTitle">Meetings</div>
+      <div className="sidebarTitle">Bot Transcripts</div>
       <Separator className="sidebarSeparator" color="black" />
       <div className="sidebarList">
         <BotList bots={bots} onSelectBot={onSelectedBot} />
