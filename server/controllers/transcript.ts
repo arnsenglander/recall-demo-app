@@ -8,7 +8,7 @@ export const getMeetingTranscript: RequestHandler = async (req, res) => {
     const recallApi = new RecallApi(process.env.RECALL_API_KEY ?? '');
 
     // Find the Meeting in the database based on the meeting_id.
-    const { meeting_id } = req.params;
+    const { meeting_id } = req.query;
     const meeting = await Meeting.findOne({ where: { id: meeting_id } });
     
     if (!meeting) {
