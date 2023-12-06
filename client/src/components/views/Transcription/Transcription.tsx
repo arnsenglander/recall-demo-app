@@ -2,7 +2,6 @@ import React from 'react';
 import { Meeting } from '../../../types/types';
 import { Transcription, TranscriptionSegment } from '../../../lib/transcribe';
 import './styles.css';
-import { Separator } from '@radix-ui/react-separator';
 
 interface TranscriptViewProps {
     meeting: Meeting;
