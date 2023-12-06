@@ -1,4 +1,4 @@
-import { RawTranscriptionData, SpeakerData } from '../../../types';
+import { RawTranscriptionData, SpeakerData, Word } from '../../../types';
 
 export class Transcriber {
 
@@ -6,7 +6,7 @@ export class Transcriber {
 
         const transcription = new Transcription();
         for (const speakerData of data) {
-            transcription.addSegment(new TranscriptionSegment(speakerData));
+            transcription.addSpeakerData(speakerData);
         }
        
         return transcription;
@@ -15,6 +15,12 @@ export class Transcriber {
 
 
 export class Transcription {
+    // The minimum time between words to consider a new segment.
+    // Segments can be broken up as separate thoughts, and thus
+    // this threshold can be thought of as a pause between thoughts.
+    //
+    // This is in seconds.
+    private readonly segmentThreshold = 5; 
     private segments: TranscriptionSegment[];
 
     constructor(segments: TranscriptionSegment[] = []) {
@@ -25,15 +31,35 @@ export class Transcription {
         return this.segments;
     }
 
-    /**
-     * The entire transcript, as a string.
-     */
-    asString(): string {
-        let transcriptionString = "";
-        this.segments.forEach((segment) => {
-            transcriptionString += `${segment.asString()}\n`;
-        });
-        return transcriptionString;
+    addSpeakerData(data: SpeakerData) {
+        // Speaker data represents a sequence of words spoken by a single speaker.
+        // We want to split this into segments, where the time between words is
+        // greater than some threshold.
+
+        let segment = new TranscriptionSegment(data.speaker, data.language || 'english')
+
+        for (let i = 0; i < data.words.length; i++) {
+            const word = data.words[i];
+            segment.addWord(word);
+
+            const nextWord = data.words[i + 1];
+            
+            // If there is no next word, then we have reached the end of the data.
+            // Add the segment and return.
+            if (!nextWord) {
+                this.addSegment(segment);
+                return;
+            }
+
+            // If the time between the current word and the next word is greater than
+            // the threshold, then we have reached the end of a segment.
+            // Add the current segment and start a new one.
+            const timeBetweenWords = nextWord.start_timestamp - word.end_timestamp;
+            if (timeBetweenWords > this.segmentThreshold) {
+                this.addSegment(segment);
+                segment = new TranscriptionSegment(data.speaker, data.language || 'english');
+            }
+        }
     }
 
     addSegment(segment: TranscriptionSegment) {
@@ -44,9 +70,14 @@ export class Transcription {
      * The total duration of the transcription, in seconds.
      */
     duration(): number {
-        return this.segments.reduce((total, segment) => {
-            return total + segment.duration();
-        }, 0);
+        // Just get the last timestamp of the last word in the last segment.
+        // This is the total duration of the transcription.
+        if (this.segments.length === 0) {
+            return 0;
+        }
+
+        const lastSegment = this.segments[this.segments.length - 1];
+        return lastSegment.end();
     }
 
     /**
@@ -62,10 +93,22 @@ export class Transcription {
 
 export class TranscriptionSegment {
 
-    constructor(private data: SpeakerData) {}
+    private data: SpeakerData;
+
+    constructor(speaker: string, language: string, words?: Word[]) {
+        this.data = {
+            speaker,
+            language,
+            words: words || []
+        }
+    }
 
     speaker(): string {
         return this.data.speaker;
+    }
+
+    addWord(word: Word) {
+        this.data.words.push(word);
     }
 
     /**
