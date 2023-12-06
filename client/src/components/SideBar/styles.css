@@ -1,8 +1,10 @@
+@import "@radix-ui/colors/mauve.css";
+
 .sidebar {
   position: fixed;
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  min-width: 260px;
   height: 100%;
   max-height: 100%;
   color: grey;
