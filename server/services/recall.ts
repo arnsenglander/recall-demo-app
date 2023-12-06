@@ -1,4 +1,4 @@
-import { RawTranscriptionData } from './../../types/index';
+import { RawTranscriptionData } from './../../types';
 import fetch from 'node-fetch'
 
 class RecallApi {
