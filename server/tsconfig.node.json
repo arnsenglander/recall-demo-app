@@ -6,5 +6,7 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "allowImportingTsExtensions": true
-  }
+  },
+
+  "include": ["./src/**/*", "./../types/**/*"]
 }
