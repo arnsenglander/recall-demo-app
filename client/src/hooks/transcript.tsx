@@ -14,14 +14,14 @@ export const useTranscript = (): TranscriptData => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchTranscript = async (meetingId: string) => {
-    if (!meetingId) {
-      setError('No meeting ID provided');
+  const fetchTranscript = async (botId: string) => {
+    if (!botId) {
+      setError('No bot ID provided');
       return;
     }
 
     try {
-      const response = await fetch(`/api/transcript?meetingId=${meetingId}`);
+      const response = await fetch(`/api/bots/${botId}/transcript`);
       const data = await response.json() as { transcript: RawTranscriptionData }
       const transcript = Transcriber.transcribe(data.transcript);
       setTranscript(transcript);

@@ -17,6 +17,7 @@ export const useMeetings = (): MeetingsData => {
       try {
         const response = await fetch('/api/meetings');
         const data = await response.json() as { meetings: Meeting[]}
+        console.log('meetings', data.meetings)
         setMeetings(data.meetings);
       } catch (error) {
         console.error(`Error fetching meetings: ${error}`);
