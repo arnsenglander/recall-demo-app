@@ -1,60 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './components/SideBar/Sidebar';
 import TranscriptionView from './components/views/Transcription/Transcription';
-import { Meeting } from './types/meeting';
+import { CreateBotRequest, Meeting } from './types/types';
 import './App.css';
+import useMeetings from './hooks/meetings';
+import useTranscript from './hooks/transcript';
 
 const App: React.FC = () => {
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
+
+  const { meetings, loading: meetingsLoading, error: meetingsError } = useMeetings();
+  const { transcript, loading: transcriptLoading, error: transcriptError, fetchTranscript } = useTranscript();
   
-  // TODO: Hook for transcriptions
+  useEffect(() => {
+    if (selectedMeeting) {
+      fetchTranscript(selectedMeeting.id);
+    }
+  }, [selectedMeeting]);
 
-  const meetings: Meeting[] = [
-    {
-      id: '1',
-      title: 'Meeting 1',
-      actionItems: ['Action item 1', 'Action item 2'],
-    },
-    {
-      id: '2',
-      title: 'Meeting 2',
-      actionItems: ['Action item 1', 'Action item 2'],
-    },
-    {
-      id: '3',
-      title: 'Meeting 3',
-      actionItems: ['Action item 1', 'Action item 2'],
-    },
-  ]
-
-  const handleSelectMeeting = (meeting: Meeting) => {
-    setSelectedMeeting(meeting);
-    // Fetch meeting details (transcription, action items, etc.) based on the selected meeting
-    // You might use state management like Redux or context API for handling data fetching
+  const handleSelectMeeting = (meeting: Meeting) => setSelectedMeeting(meeting);
+  const handleSendBot = async (bot: CreateBotRequest) => {
+    await createBot(bot);
   };
 
-  const handleSendBot = () => {
-    // Implement logic to send bot to the selected meeting
-    console.log('Bot sent to meeting:', selectedMeeting);
-    // TODO: Bot hook
-  };
+  const loading = meetingsLoading;
+  const error = meetingsError || transcriptError;
 
   return (
-    <div >
-      <Sidebar
-        meetings={meetings} 
-        onSelectMeeting={handleSelectMeeting} 
-        onSendBot={handleSendBot} 
-      />
-      <div className="content">
-        {selectedMeeting ? (
-          <TranscriptionView meeting={selectedMeeting} transcription="This is a transcription" />
-        ) : (
-          <p>Select a meeting from the sidebar</p>
-        )}
-      </div>
+    <div>
+      {
+        error ? <p>{JSON.stringify(error)}</p> : 
+          loading ? <p>Loading...</p> :
+        (
+        <div className="root">
+          <Sidebar
+            meetings={meetings} 
+            onSelectMeeting={handleSelectMeeting} 
+            onSendBot={handleSendBot} 
+          />
+          <div className="content">
+            {selectedMeeting ? (
+              transcript ? (
+                <TranscriptionView meeting={selectedMeeting} transcription={transcript} />
+              ) : (
+                <p>No transcription found</p>
+              )
+            ) : (
+              <p
+                style={
+                  {
+                     fontSize: '1rem',  
+                     color: 'gray',
+                  }
+                }
+              >Select a meeting from the sidebar.</p>
+            )}
+          </div>
+          </div>
+        )
+      }
     </div>
   );
 };
+
+async function createBot(data: CreateBotRequest) {
+  console.log('creating bot with data:', data)
+  const response = await fetch('/api/bot', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  return json;
+}
 
 export default App;
