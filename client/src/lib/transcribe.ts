@@ -14,7 +14,7 @@ export class Transcriber {
 }
 
 
-class Transcription {
+export class Transcription {
     private segments: TranscriptionSegment[];
 
     constructor(segments: TranscriptionSegment[] = []) {
@@ -25,7 +25,7 @@ class Transcription {
         return this.segments;
     }
 
-    get asString(): string {
+    asString(): string {
         let transcriptionString = "";
         this.segments.forEach((segment) => {
             transcriptionString += `${segment.asString()}\n`;
