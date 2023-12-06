@@ -1,15 +1,15 @@
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './styles.css';
-import { Meeting } from '../../types/types';
+import { Bot } from '../../../../types';
 import { CalendarIcon } from '@radix-ui/react-icons';
 
 
-interface MeetingListProps {
-    meetings: Meeting[];
-    onSelectMeeting: (meeting: Meeting) => void;
+interface BotListProps {
+    bots: Bot[];
+    onSelectBot: (bot: Bot) => void;
 }
 
-const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
+const BotList = ({ bots, onSelectBot }: BotListProps) => {
 
   const formatDateString = (dateString: string) => {
     const date = new Date(dateString);
@@ -25,16 +25,16 @@ const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
   return (
   <ScrollArea.Root className="ScrollAreaRoot">
     <ScrollArea.Viewport className="ScrollAreaViewport">
-      {meetings.map((meeting, index) => (
+      {bots.map((bot, index) => (
         <div
           key={index}
-          className="meetingItem"
+          className="botItem"
           onClick={() => {
-            onSelectMeeting(meeting);
+            onSelectBot(bot);
           }}
         >
           <CalendarIcon height={12} width={20} style={{ marginRight: 5 }} />
-          <div>{formatDateString(meeting.createdAt)}</div>
+          <div>{formatDateString(bot.join_at)}</div>
         </div>
       ))}
     </ScrollArea.Viewport>
@@ -49,4 +49,4 @@ const MeetingList = ({ meetings, onSelectMeeting }: MeetingListProps) => {
   );
 };
 
-export default MeetingList;
+export default BotList;

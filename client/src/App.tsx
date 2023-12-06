@@ -1,25 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from './components/SideBar/Sidebar';
 import TranscriptionView from './components/views/Transcription/Transcription';
-import { CreateBotRequest, Meeting } from './types/types';
+import { Bot, CreateBotRequest } from '../../types';
+import { Meeting } from './types/types';
 import './App.css';
 import useMeetings from './hooks/meetings';
 import useTranscript from './hooks/transcript';
 import { FileTextIcon } from '@radix-ui/react-icons';
+import useBots from './hooks/bots';
 
 const App: React.FC = () => {
+  const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
   const [selectedMeeting, setSelectedMeeting] = useState<Meeting | null>(null);
 
+  const { bots, loading: botsLoading, error: botsError } = useBots();
   const { meetings, loading: meetingsLoading, error: meetingsError } = useMeetings();
   const { transcript, loading: transcriptLoading, error: transcriptError, fetchTranscript } = useTranscript();
   
   useEffect(() => {
-    if (selectedMeeting) {
-      fetchTranscript(selectedMeeting.id);
+    if (selectedBot) {
+      fetchTranscript(selectedBot.id);
     }
-  }, [selectedMeeting]);
+  }, [selectedBot]);
 
-  const handleSelectMeeting = (meeting: Meeting) => setSelectedMeeting(meeting);
+  const handleSelectedBot = (bot: Bot) => {
+    setSelectedBot(bot);
+  };
+
   const handleSendBot = async (bot: CreateBotRequest) => {
     await createBot(bot);
   };
@@ -35,14 +42,14 @@ const App: React.FC = () => {
         (
         <div className="root">
           <Sidebar
-            meetings={meetings} 
-            onSelectMeeting={handleSelectMeeting} 
+            bots={bots}
+            onSelectedBot={handleSelectedBot} 
             onSendBot={handleSendBot} 
           />
           <div className="content">
-            {selectedMeeting ? (
+            {selectedBot ? (
               transcript ? (
-                <TranscriptionView meeting={selectedMeeting} transcription={transcript} />
+                <TranscriptionView bot={selectedBot} transcription={transcript} />
               ) : (
                 <p>No transcription found</p>
               )

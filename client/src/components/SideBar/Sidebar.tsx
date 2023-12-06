@@ -1,17 +1,18 @@
 import React from 'react';
-import MeetingList from '../MeetingList/MeetingList';
-import { CreateBotRequest, Meeting } from '../../types/types';
+import BotList from '../BotsList/BotsList';
+import { Bot } from '../../../../types';
+import { CreateBotRequest } from '../../../../types';
 import './styles.css';
 import NewBotModal from '../NewBotModal/NewBotModal';
 import { Separator } from '@radix-ui/react-separator';
 
 interface SidebarProps {
-  meetings: Meeting[]; // Array of meeting titles
-  onSelectMeeting: (meeting: Meeting) => void;
+  bots: Bot[];
+  onSelectedBot: (bot: Bot) => void;
   onSendBot: (bot: CreateBotRequest) => Promise<void>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ meetings, onSelectMeeting, onSendBot }) => {
+const Sidebar: React.FC<SidebarProps> = ({ bots, onSelectedBot, onSendBot }) => {
 
   const [modalOpen, setModalOpen] = React.useState(false);
 
@@ -20,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ meetings, onSelectMeeting, onSendBot 
       <div className="sidebarTitle">Meetings</div>
       <Separator className="sidebarSeparator" color="black" />
       <div className="sidebarList">
-        <MeetingList meetings={meetings} onSelectMeeting={onSelectMeeting} /> 
+        <BotList bots={bots} onSelectBot={onSelectedBot} />
       </div>
       <button 
         className="newMeetingButton" 

@@ -45,7 +45,7 @@
   position: relative;
 }
 
-.meetingItem {
+.botItem {
   padding: 0 8px;
   margin: 2px 0;
   display: flex;
@@ -58,7 +58,7 @@
   font-size: 14px;
 }
 
-.meetingItem:hover {
+.botItem:hover {
   background-color: var(--mauve-6);
 }
 

@@ -1,17 +1,17 @@
 import React from 'react';
-import { Meeting } from '../../../types/types';
 import { Transcription, TranscriptionSegment } from '../../../lib/transcribe';
 import './styles.css';
+import { Bot } from '../../../../../types';
 
 interface TranscriptViewProps {
-    meeting: Meeting;
+  bot: Bot;
     transcription: Transcription;
 }
 
-const TranscriptionView: React.FC<TranscriptViewProps> = ({ meeting, transcription }) => {
+const TranscriptionView: React.FC<TranscriptViewProps> = ({ bot, transcription }) => {
   return (
     <div className="view">
-      <TranscriptViewHeader meeting={meeting} transcription={transcription} />
+      <TranscriptViewHeader bot={bot} transcription={transcription} />
       <div className="transcriptBody">
           {
             transcription.getSegments.map((segment) => (
@@ -30,11 +30,11 @@ const TranscriptionView: React.FC<TranscriptViewProps> = ({ meeting, transcripti
   );
 };
 
-const TranscriptViewHeader: React.FC<TranscriptViewProps> = ({ meeting, transcription }) => {
+const TranscriptViewHeader: React.FC<TranscriptViewProps> = ({ bot, transcription }) => {
   return (
     <div className="transcriptViewHeader">
       <div className="transcriptViewHeaderTitle">Meeting Transcript</div>
-      <div>{(new Date(meeting.createdAt)).toLocaleString('en-US', {
+      <div>{(new Date(bot.join_at)).toLocaleString('en-US', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
