@@ -1,10 +1,12 @@
 @import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/blue.css";
 
 .sidebar {
   position: fixed;
   display: flex;
   flex-direction: column;
-  min-width: 260px;
+  width: 15rem;
+  padding: 0.5rem;
   height: 100%;
   max-height: 100%;
   color: grey;
@@ -12,14 +14,14 @@
 
 .sidebarTitle {
   font-size: 0.9rem;
-  font-weight: bold;
-  margin: 1rem 0.5rem 0;
+  font-weight: 400;
+  margin: 1rem 0.5rem 0.5rem;
 }
 
 .sidebarSeparator {
   height: 1px;
   background-color: var(--mauve-5);
-  margin: 0rem 0.5rem;
+  margin: 0.5rem 0.5rem;
 }
 
 .sidebarList {
@@ -32,10 +34,42 @@
 
 .newMeetingButton {
   margin: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 0.5rem;
   color: #eee;
   font-size: 0.9rem;
   text-align: center;
   font-weight: bold;
   cursor: pointer;
+}
+
+.userBadge {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--mauve-5);
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--mauve-1);
+  }
+
+  .userBadgeAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid var(--blue-7);
+    padding: 0.1rem;
+    border-radius: 50%;
+    color: var(--blue-7);
+  }
+
+  .userBadgeName {
+    margin-left: 0.5rem;
+    font-size: 14px;
+  }
 }

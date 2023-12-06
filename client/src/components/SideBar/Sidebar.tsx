@@ -5,6 +5,7 @@ import { CreateBotRequest } from '../../../../types';
 import './styles.css';
 import NewBotModal from '../NewBotModal/NewBotModal';
 import { Separator } from '@radix-ui/react-separator';
+import { PersonIcon } from '@radix-ui/react-icons';
 
 interface SidebarProps {
   bots: Bot[];
@@ -18,8 +19,9 @@ const Sidebar: React.FC<SidebarProps> = ({ bots, onSelectedBot, onSendBot }) => 
 
   return (
     <aside className="sidebar">
-      <div className="sidebarTitle">Bot Transcripts</div>
+      <UserBadge />
       <Separator className="sidebarSeparator" color="black" />
+      <div className="sidebarTitle">Bot Transcripts</div>
       <div className="sidebarList">
         <BotList bots={bots} onSelectBot={onSelectedBot} />
       </div>
@@ -35,5 +37,20 @@ const Sidebar: React.FC<SidebarProps> = ({ bots, onSelectedBot, onSendBot }) => 
     </aside>
   );
 };
+
+const UserBadge = ({label}: {label: string}) => {
+
+  if (!label) {
+    label = 'John Doe'
+  }
+
+  return (
+    <div className="userBadge">
+        <PersonIcon className="userBadgeAvatar" />
+      <div className="userBadgeName">{label}</div>
+    </div>
+  );
+}
+
 
 export default Sidebar;
