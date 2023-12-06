@@ -38,8 +38,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as Bot
-    console.log('send bot response:', data)
-
     return data
   }
 
@@ -59,8 +57,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as Bot[]
-    console.log('got bots:', data)
-    
     return data
   }
 
@@ -79,7 +75,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as Bot
-    console.log('got bot:', data)
     return data
   }
 
@@ -130,7 +125,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as IntelligenceResultsResponse
-    console.log('got intelligence results:', data)
     return data
   }
 
@@ -162,7 +156,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as ListJobsResponse
-    console.log('got jobs:', data)
     return data
   }
 
@@ -181,7 +174,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as Job
-    console.log('got job:', data)
     return data
   }
 
@@ -202,7 +194,6 @@ class RecallApi {
     return fetch(url, options)
       .then(async (res) => {
         const data = await res.json() as RawTranscriptionData;
-        console.log('got bot transcript:', data)
         return data;
       })
       .catch(e => {
