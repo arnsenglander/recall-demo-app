@@ -1,4 +1,5 @@
 @import "@radix-ui/colors/mauve";
+@import "@radix-ui/colors/mauve.css";
 
 .view {
   display: flex;
@@ -12,7 +13,6 @@
 .transcriptViewHeader {
   position: sticky;
   top: 0;
-  background-color: white;
   height: 60px;
   width: 100%;
   font-size: 14px;
@@ -21,7 +21,10 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid grey;
+  background-color: white;
+  background-color: var(--mauve-2);
+  z-index: 13;
+  border-bottom: 1px solid var(--mauve-7);
 }
 
 .transcriptViewHeaderTitle {
