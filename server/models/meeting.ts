@@ -20,6 +20,7 @@ Meeting.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
+    defaultValue: DataTypes.UUIDV4,
   },
   recall_bot_id: {
     type: DataTypes.STRING,
