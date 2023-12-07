@@ -1,4 +1,24 @@
+interface AssemblyAISentimentAnalysisResult {
+  end: number;
+  text: string;
+  start: number;
+  speaker: null;
+  sentiment: 'POSITIVE' | 'NEUTRAL' | 'NEGATIVE';
+  confidence: number;
+}
+
+interface AssemblyAIEntity {
+  end: number;
+  text: string;
+  start: number;
+  entity_type: 'person_name'; // Add other possible entity types if needed
+}
 export interface IntelligenceResultsResponse {
+    'assembly_ai.entities': AssemblyAIEntity[];
+    'assembly_ai.summary': string;
+    'assembly_ai.language_code': string;
+    'assembly_ai.id': string;
+    'assembly_ai.sentiment_analysis_results': AssemblyAISentimentAnalysisResult[];
     "assembly_ai.content_safety_labels": {
       status: string;
       results: any[]; // Replace with actual type
@@ -9,11 +29,14 @@ export interface IntelligenceResultsResponse {
       results: any[]; // Replace with actual type
       summary: any; // Replace with actual type
     };
-    "assembly_ai.summary": string;
-    "assembly_ai.language_code": string;
-    "assembly_ai.id": string;
     
     // ... Add Other providers 
+}
+
+
+export interface AnalysisOptions {
+    assemblyai_async_transcription: AssemblyAiAsyncTranscriptionOptions;
+    // ... Add Other providers
 }
 
 /**
