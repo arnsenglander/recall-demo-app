@@ -37,7 +37,7 @@ app.post('/bots/:botId/intelligence', createIntelligence);
     await sequelize.sync();
     console.log('All database models synced ✅');
     
-    const port = 3000;
+    const port = process.env.SERVER_PORT || 3000;
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
