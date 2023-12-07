@@ -1,0 +1,73 @@
+.sentimentAnalysisContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.sentimentAnalysisTitleContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.sentimentAnalysisTitle {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+.sentimentResult {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  margin: 8px 0;
+  display: block;
+  width: 100%;
+}
+
+.sentimentResultTextContainer {
+  display: grid;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.sentimentResultText {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.sentimentResultTimestamp {
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.sentimentResultDivider {
+  margin: 8px 0;
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  display: block;
+  width: 100%;
+}
+
+.sentimentResultAnalysis {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  gap: 8px;
+  align-items: center;
+}
