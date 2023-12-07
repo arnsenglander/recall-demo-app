@@ -30,8 +30,6 @@ export const listBots: RequestHandler = async (_req: Request, res: Response) => 
 
   try {
     const bots = await recallApi.listBots();
-    console.log('Bots', bots);
-
     res.status(200).json({ bots: bots });
   } catch (e) {
     console.log('Error listing bots:', e);

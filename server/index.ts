@@ -2,10 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import { configDotenv } from 'dotenv';
 import { getTranscript } from './controllers/transcript.ts';
-import { listMeetings } from './controllers/meeting.ts';
 import { createBot, getBot, listBots } from './controllers/bot.ts';
 import sequelize from './db/config.ts';
 import { listJobs, getJob } from './controllers/jobs.ts';
+import { createIntelligence, getIntelligence } from './controllers/intelligence.ts';
 
 configDotenv()
 
@@ -23,8 +23,9 @@ app.get('/bots/:botId/transcript', getTranscript);
 app.get('/jobs', listJobs)
 app.get('/jobs/:jobId', getJob)
 
-// Meetings (TODO: remove in favor of bots)
-app.get('/meetings', listMeetings);
+// Intelligence
+app.get('/bots/:botId/intelligence', getIntelligence);
+app.post('/bots/:botId/intelligence', createIntelligence);
 
 // Initialize the database connection and sync models
 (async () => {

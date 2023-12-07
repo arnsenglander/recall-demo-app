@@ -1,4 +1,4 @@
-import { AssemblyAiAsyncTranscriptionOptions, IntelligenceResultsResponse, Job, ListJobsOpts, ListJobsResponse } from '../../types/intelligence.ts';
+import { AnalysisOptions, IntelligenceResultsResponse, Job, ListJobsOpts, ListJobsResponse } from '../../types/intelligence.ts';
 import { Bot, CreateBotRequest } from './../../types/bot.ts';
 import { RawTranscriptionData } from './../../types/index.ts';
 import fetch from 'node-fetch'
@@ -6,6 +6,7 @@ import fetch from 'node-fetch'
 class RecallApi {
 
   private BASE_URL = 'https://api.recall.ai/api/v1'
+  private V2_BASE_URL = 'https://api.recall.ai/api/v2beta'
 
   constructor(private apiKey: string) {
       if (!apiKey) throw new Error('API key is required')
@@ -80,24 +81,33 @@ class RecallApi {
 
   /**
    * Asynchronously analyze the media of a bot using external AI providers.
-   * Default: AssemblyAI
+   * Right now this only supports AssemblyAI, but could easily be extended to support other providers
+   * through the use of a factory pattern.
    * @param botId ID of the bot for which to get the media analysis
    * @param opts (optional) Options for the media analysis (e.g. language, summarization, sentiment_analysis, entity_detection)
    */
-  async analyzeBotMedia(botId: string, opts?: AssemblyAiAsyncTranscriptionOptions): Promise<void> {
+  async analyzeBotMedia(botId: string, opts?: AnalysisOptions): Promise<void> {
     if (!opts) {
+      // Use assemblyAI summary as defaults
+      console.log('No options provided, using assemblyAI summary as defaults')
       opts = {
-        summarization: true,
-        sentiment_analysis: true,
-        entity_detection: true,
+        assemblyai_async_transcription: {
+          summarization: true,
+          summary_model: "informative",
+          summary_type: "paragraph",
+          sentiment_analysis: true,
+          entity_detection: true,
+        }
       }
     }
 
-    const resp = await fetch(this.BASE_URL+ `/bot/${botId}/analyze`, {
+    const resp = await fetch(this.V2_BASE_URL + `/bot/${botId}/analyze`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Token ' + this.apiKey,
       },
+      body: JSON.stringify(opts),
     })
 
     if (!resp.ok) {
@@ -123,6 +133,8 @@ class RecallApi {
       console.error('Error getting bot intelligence:', data)
       throw new Error('Error getting bot intelligence')
     }
+
+    // An empty object is returned if the bot has not been analyzed yet.
 
     const data = await resp.json() as IntelligenceResultsResponse
     return data
