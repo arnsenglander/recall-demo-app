@@ -58,12 +58,15 @@
   font-size: 14px;
 }
 
-.botItem:hover {
-  background-color: var(--mauve-6);
+.botItemSelected {
+  padding: 8px;
+  background-color: var(--mauve-5);
+  border-radius: 4px;
+  border: 1px solid var(--violet-7);
 }
 
-.botItem:active {
-  background-color: var(--mauve-7);
+.botItem:hover {
+  background-color: var(--mauve-6);
 }
 
 .botItemImage {

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './styles.css';
 import { Bot } from '../../../../types';
@@ -9,60 +10,18 @@ interface BotListProps {
 
 const BotList = ({ bots, onSelectBot }: BotListProps) => {
 
-  const formatDateString = (dateString: string) => {
-    const date = new Date(dateString);
-    const dateFormatted = date.toLocaleString('en-US', { 
-      month: 'short', 
-      day: 'numeric', 
-      year: 'numeric', 
-      hour: 'numeric', 
-      minute: 'numeric', 
-      hour12: true
-    });
-    return dateFormatted;
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const year = date.getFullYear();
-    return `${month}/${day}/${year} ${hours}:${minutes} ${ampm}`;
-  }
-
-  const getBotTitle = (bot: Bot) => {
-    switch (bot.meeting_url.platform) {
-      case 'zoom':
-        return `Zoom`;
-      case 'google_meet':
-        return `Google Meet`;
-      case 'teams':
-        return `Teams`;
-      default:
-        return `Meeting`;
-    }
-  }
+  const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
+  const isSelected = (bot: Bot) => selectedBot && bot.id === selectedBot.id;
 
   return (
   <ScrollArea.Root className="ScrollAreaRoot">
     <ScrollArea.Viewport className="ScrollAreaViewport">
       {bots.map((bot, index) => (
-        <div
-          key={index}
-          className="botItem"
-          onClick={() => {
+        <BotListItem key={index} bot={bot} selected={isSelected(bot)}
+          onSelectBot={(bot) => {
+            setSelectedBot(bot);
             onSelectBot(bot);
-          }}
-        >
-          {/* <CalendarIcon height={16} width={16} className="botItemIcon" /> */}
-          <BotImage bot={bot} />
-          <div style={{ flex: 1 }}
-          >
-            <div className="botItemTitle">
-              {getBotTitle(bot)}
-            </div>
-            <div className="botItemSubtext">{formatDateString(bot.join_at)}</div>
-          </div>
-        </div>
+          }}/>
       ))}
     </ScrollArea.Viewport>
     <ScrollArea.Scrollbar className="ScrollAreaScrollbar" orientation="vertical">
@@ -75,6 +34,19 @@ const BotList = ({ bots, onSelectBot }: BotListProps) => {
   </ScrollArea.Root>
   );
 };
+
+const BotListItem = ({ bot, onSelectBot, selected }: { bot: Bot, onSelectBot: (bot: Bot) => void, selected: boolean}) => {
+console.log('selected', selected);
+ return (
+  <div key={bot.id} className={selected ? "botItemSelected" : "botItem"} onClick={() => onSelectBot(bot)}>
+    <BotImage bot={bot} />
+    <div style={{ flex: 1 }}>
+      <div className="botItemTitle">{getBotTitle(bot)}</div>
+      <div className="botItemSubtext">{formatDateString(bot.join_at)}</div>
+    </div>
+  </div>
+ )
+}
 
 const BotImage = ({ bot }: { bot: Bot }) => {
 
@@ -101,4 +73,31 @@ const BotImage = ({ bot }: { bot: Bot }) => {
   return <img className="botItemImage" src={url} alt={platform} /> 
 }
 
+const getBotTitle = (bot: Bot) => {
+  switch (bot.meeting_url.platform) {
+    case 'zoom':
+      return `Zoom`;
+    case 'google_meet':
+      return `Google Meet`;
+    case 'teams':
+      return `Teams`;
+    default:
+      return `Meeting`;
+  }
+}
+
+const formatDateString = (dateString: string) => {
+  const date = new Date(dateString);
+  const dateFormatted = date.toLocaleString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    hour12: true
+  });
+  return dateFormatted;
+}
+
 export default BotList;
+
