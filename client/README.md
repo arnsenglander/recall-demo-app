@@ -1,30 +1,68 @@
-# React + TypeScript + Vite
+# Recall Demo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A demo app demonstrating how to easily extract, interact with, and analyze meeting data using the [Recall API](https://recallai.readme.io/reference/recall-overview).
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+While it doesn't comprehensively cover all of Recall's APIs, it provides an easily extendable starting point for a variety of applications.
 
-## Expanding the ESLint configuration
+Some app ideas that could easily be built on top of this template:
+- Real-time Sales coaching/assistants
+- Employee Training and Development
+- Content Creation & Marketing
+- Project management integration
+- Consumer facing personal productivity/time management
+- Customer support optimization
+  
+## Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The repository is organized as a monorepo:
 
-- Configure the top-level `parserOptions` property like this:
+- `/server`: Express server folder responsible for handling API requests, interacting with the database, and proxying the Recall API.
+- `/client`: React frontend folder containing the user interface for interacting with the intelligence data.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+*See each directory's README file for more in-depth information.*
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version >= 16)
+
+### Installation & Configuration
+
+1. Clone the repository:
+
+   ```bash
+   git clone <your-repo-url.git>
+   ```
+
+2. Create a `.env` file in the `/server` directory.
+  *Note: For simplicity, you can duplicate the `/server/.env.example` file and name it `.env`*
+
+3. Set the `RECALL_API_KEY` environment variable to your Recall API key. 
+
+### Install dependencies
+Starting from the root of the project, navigate to the server directory and install dependencies:
+
+  ```bash
+  cd server && npm install
+  ```
+
+  Then, navigate to the client directory and install the react app's dependencies:
+  ```bash
+  cd .. && cd client && npm install
+  ```
+
+### Run the app
+
+At the root of the server directory, run:
+```bash
+npm run serve
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Open another terminal window. Now, at the root of the client directory, run:
+```bash
+npm run dev
+```
+
+The app is now running on your machine 🎉
