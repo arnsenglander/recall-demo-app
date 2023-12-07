@@ -1,4 +1,4 @@
-interface AssemblyAISentimentAnalysisResult {
+export interface SentimentAnalysisResult {
   end: number;
   text: string;
   start: number;
@@ -7,18 +7,18 @@ interface AssemblyAISentimentAnalysisResult {
   confidence: number;
 }
 
-interface AssemblyAIEntity {
+interface Entity {
   end: number;
   text: string;
   start: number;
   entity_type: 'person_name'; // Add other possible entity types if needed
 }
 export interface IntelligenceResultsResponse {
-    'assembly_ai.entities': AssemblyAIEntity[];
+    'assembly_ai.entities': Entity[];
     'assembly_ai.summary': string;
     'assembly_ai.language_code': string;
     'assembly_ai.id': string;
-    'assembly_ai.sentiment_analysis_results': AssemblyAISentimentAnalysisResult[];
+    'assembly_ai.sentiment_analysis_results': SentimentAnalysisResult[];
     "assembly_ai.content_safety_labels": {
       status: string;
       results: any[]; // Replace with actual type
