@@ -1,0 +1,29 @@
+@import "@radix-ui/colors/mauve.css";
+
+.userBadge {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: #0090ff;
+  vertical-align: middle;
+  text-align: center;
+  padding: 4px 8px;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  background-color: var(--mauve-1);
+  text-overflow: ellipsis;
+}
+
+.userBadgeIcon {
+  height: 12px;
+  width: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.userBadgeLabel {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+}
