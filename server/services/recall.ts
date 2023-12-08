@@ -116,8 +116,6 @@ class RecallApi {
       console.error('Error analyzing bot media:', data)
       throw new Error('Error analyzing bot media')
     }
-
-    const data = await resp.json() as any
   }
 
   async getBotIntelligence(botId: string): Promise<IntelligenceResultsResponse> {
