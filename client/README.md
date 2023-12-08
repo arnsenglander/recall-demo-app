@@ -22,10 +22,15 @@ src/
 ```
 
 `assets/`: Static assets (images, fonts, etc)
+
 `components/`: Reusable UI components used across the app.
+
 `features/`: Organize components, styles, and logic specific to different features.
+
 `hooks/`: Custom React hooks used throughout the app.
+
 `lib/`: Utility functions and helper classes
+
 `pages/`: Top-level components representing different pages or views.
 
 ## Setup
@@ -40,9 +45,8 @@ npm run dev
 
 Your app is now live at http://localhost:5173/ 🎉
 
-Technologies Used
+## Technologies Used
 
 - [React](https://react.dev/reference/react)
 - [Vite](https://vitejs.dev/guide/)
-- [Radix UI](https://www.radix-ui.com/primitives/docs/overview/introduction) - UI primitives and icons.
-  - Feel free to replace any of the UI primitives with your favorite UI framework or library!
+- [Radix UI](https://www.radix-ui.com/primitives/docs/overview/introduction): UI primitives and icons. Feel free to replace this with your favorite UI framework or library.
