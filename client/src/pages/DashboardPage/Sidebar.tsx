@@ -17,6 +17,7 @@ const DashboardSidebar = ({ bots, onSelectedBot, onSendBot }: DashboardSidebarPr
   return (
     <aside className="sidebar">
       <div className="sidebarTitle">Bot Transcripts</div>
+      <div className="sidebarSeparator" />
       <div className="sidebarList">
         <BotList bots={bots} onSelectBot={onSelectedBot} />
       </div>

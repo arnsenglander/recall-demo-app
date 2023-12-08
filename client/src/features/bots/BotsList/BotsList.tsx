@@ -12,6 +12,10 @@ interface BotListProps {
 
 const BotList = ({ bots, onSelectBot }: BotListProps) => {
 
+  if (!bots.length) return (
+    <div className="emptyBotList">Created bots will appear here</div>
+  )
+
   const [selectedBot, setSelectedBot] = useState<Bot | null>(null);
   const isSelected = (bot: Bot) => (selectedBot && bot.id === selectedBot.id) ?? false;
 

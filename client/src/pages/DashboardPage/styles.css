@@ -74,8 +74,8 @@
 
 .sidebarSeparator {
   height: 1px;
-  background-color: var(--mauve-5);
-  margin: 0.5rem 0.5rem;
+  background-color: var(--mauve-6);
+  margin: 0 0.5rem;
 }
 
 .sidebarList {
@@ -179,4 +179,15 @@
   border-radius: 4px;
   background-color: inherit;
   border: none;
+}
+
+.emptyBotList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--mauve-10);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 20px;
 }
