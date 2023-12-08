@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IntelligenceResultsResponse } from '../../../types';
+import { IntelligenceResultsResponse, SentimentAnalysisResult } from 'types/intelligence';
 
 export interface IntelligenceHook {
     intelligence: Intelligence | null;
@@ -25,14 +25,8 @@ const useIntelligence = (botId: string): IntelligenceHook => {
     const fetchIntelligence = async (botId: string) => {
         reset()
 
-        if (!botId) {
-            setError('No bot ID provided');
-            return;
-        }
-    
         try {
             const response = await fetch(`/api/bots/${botId}/intelligence`);
-            
             // If it's a 404, no intelligence exists yet. 
             if (response.status === 404) {
                 return;
@@ -40,11 +34,16 @@ const useIntelligence = (botId: string): IntelligenceHook => {
 
             const data = await response.json() as { intelligence: IntelligenceResultsResponse };
             if (!data.intelligence) {
-                setError('No intelligence found');
+                setError('No intelligence data found');
                 return;
             }
 
-            console.log('intelligence response:', data)            
+            // If an empty object is returned, it exists but is still being generated.
+            if (Object.keys(data.intelligence).length === 0) {
+                setMessage('Generating summary...');
+                return;
+            }
+
             setIntelligence(new Intelligence(data.intelligence));
         } catch (error) {
             console.error(error)
@@ -53,13 +52,20 @@ const useIntelligence = (botId: string): IntelligenceHook => {
             setLoading(false);
         }
     };
-  
+ 
+    /**
+     * Start running analysis on the bot's transcript.
+     * Right now this defaults to AssemblyAI's summarization, sentiment analysis, 
+     * and entity detection.
+     *
+     * This can easily be extended to allow the end user to choose which AI provider
+     * and what kind of analysis they want to run.
+     * 
+     * More info: https://recallai.readme.io/reference/bot_analyze_create
+     * @param botId 
+     * @returns 
+     */
     const createIntelligence = async (botId: string) => {
-        if (!botId) {
-            setError('No bot ID provided');
-            return;
-        }
-
         if (intelligence) {
             setError('Intelligence already exists');
             return;
@@ -105,9 +111,11 @@ export class Intelligence {
     getSummary(): string {
         return this.data['assembly_ai.summary'];
     }
-
     getLanguage(): string {
         return this.data['assembly_ai.language_code'];
+    }
+    getSentimentResults(): SentimentAnalysisResult[] {
+        return this.data['assembly_ai.sentiment_analysis_results'] || [];
     }
 }
 

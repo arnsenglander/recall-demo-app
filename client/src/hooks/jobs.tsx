@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Job } from './../../../types';
+import { Job } from 'types/intelligence';
 
 const useJobs = (): Job[] => {
   const [jobs, setJobs] = useState<Job[]>([]);

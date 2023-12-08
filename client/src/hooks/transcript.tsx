@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from 'react';
+import { useState } from 'react';
 import { Transcriber, Transcription } from '../lib/transcribe';
 import { RawTranscriptionData } from '../../../types';
 
@@ -11,7 +11,7 @@ export interface TranscriptData {
 
 export const useTranscript = (): TranscriptData => {
   const [transcript, setTranscript] = useState<Transcription | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchTranscript = async (botId: string) => {
@@ -37,34 +37,3 @@ export const useTranscript = (): TranscriptData => {
 };
 
 export default useTranscript;
-
-interface TranscriptContextProps {
-  children: React.ReactNode;
-  meetingId: string;
-}
-
-const TranscriptContext = createContext<TranscriptData | undefined>(undefined);
-
-export const TranscriptProvider: React.FC<TranscriptContextProps> = ({ children, meetingId }) => {
-  const { transcript, loading, error, fetchTranscript } = useTranscript();
-
-  useEffect(() => {
-    fetchTranscript(meetingId);
-  })
-
-  return (
-    <TranscriptContext.Provider value={{ transcript, loading, error, fetchTranscript }}>
-      {children}
-    </TranscriptContext.Provider>
-  );
-};
-
-export const useTranscriptContext = () => {
-  const context = useContext(TranscriptContext);
-
-  if (!context) {
-    throw new Error('useTranscriptContext must be used within a TranscriptProvider');
-  }
-
-  return context;
-};

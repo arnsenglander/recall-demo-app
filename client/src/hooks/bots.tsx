@@ -1,12 +1,12 @@
 
 import { useState, useEffect } from 'react';
-import { Bot, ListBotsResponse } from './../../../types';
+import { Bot, CreateBotRequest, ListBotsResponse } from 'types/bot';
 
 export interface BotsHook {
     bots: Bot[];
     loading: boolean;
     error: string | null;
-    refetch: () => void;
+    handleCreateBot: (bot: CreateBotRequest) => Promise<void>;
 }
 
 const useBots = (): BotsHook => {
@@ -14,7 +14,8 @@ const useBots = (): BotsHook => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    const fetchBots = async () => {
+    async function fetchBots() {
+        setLoading(true);
         try {
             const response = await fetch('/api/bots');
             const data = await response.json() as ListBotsResponse;
@@ -27,11 +28,34 @@ const useBots = (): BotsHook => {
         }
     }
 
+    async function create(data: CreateBotRequest): Promise<void> {
+        setLoading(true);
+        try {
+            const response = await fetch('/api/bots', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data),
+            });
+            await response.json();
+        } catch (error) {
+            console.error(`Error creating bot: ${error}`);
+            setError('Error creating bot');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleCreateBot = async (bot: CreateBotRequest) => {
+        await create(bot).then(() => fetchBots())
+    }
+      
     useEffect(() => {
         fetchBots();
     }, []);
 
-    return { bots, loading, error, refetch: fetchBots };
+    return { bots, loading, error, handleCreateBot };
 }
 
 export default useBots;
