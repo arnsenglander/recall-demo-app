@@ -90,6 +90,7 @@ class RecallApi {
     if (!opts) {
       // Use assemblyAI summary as defaults
       console.log('No options provided, using assemblyAI summary as defaults')
+
       opts = {
         assemblyai_async_transcription: {
           summarization: true,
@@ -117,7 +118,6 @@ class RecallApi {
     }
 
     const data = await resp.json() as any
-    console.log('bot media analysis response:', data)
   }
 
   async getBotIntelligence(botId: string): Promise<IntelligenceResultsResponse> {
@@ -135,7 +135,6 @@ class RecallApi {
     }
 
     // An empty object is returned if the bot has not been analyzed yet.
-
     const data = await resp.json() as IntelligenceResultsResponse
     return data
   }
