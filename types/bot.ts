@@ -2,8 +2,14 @@ export interface CreateBotRequest {
   name: string;
   meeting_url: string;
   transcription_options?: {
-    provider: 'default' | 'assembly_ai' | 'deepgram' | 'gladia' | 'rev' | 'aws_transcribe';
-  }
+    provider:
+      | "default"
+      | "assembly_ai"
+      | "deepgram"
+      | "gladia"
+      | "rev"
+      | "aws_transcribe";
+  };
 }
 
 export interface ListBotsResponse {
@@ -12,7 +18,7 @@ export interface ListBotsResponse {
     next: string | null;
     previous: string | null;
     results: Bot[];
-  }
+  };
 }
 
 export interface Bot {
@@ -30,12 +36,12 @@ export interface Bot {
 }
 
 export enum TranscriptionOptions {
-  Default = 'default',
-  AssemblyAI = 'assembly_ai',
-  DeepGram = 'deepgram',
-  Gladia = 'gladia',
-  Rev = 'rev',
-  AWSTranscribe = 'aws_transcribe',
+  Default = "default",
+  AssemblyAI = "assembly_ai",
+  DeepGram = "deepgram",
+  Gladia = "gladia",
+  Rev = "rev",
+  AWSTranscribe = "aws_transcribe",
 }
 
 interface CalendarMeeting {
@@ -45,7 +51,7 @@ interface CalendarMeeting {
   calendar_user: {
     id: string;
     external_id: string;
-  }
+  };
 }
 interface StatusChange {
   code: Code;
