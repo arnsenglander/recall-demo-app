@@ -1,7 +1,7 @@
-import { Bot } from "../../../../types";
-import { prettifyDate } from "../../lib/dates";
-import { getPlatformLabel } from "../../lib/platforms";
-import Badge from "../../components/Badge/Badge";
+import { Bot } from "types/bot";
+import { prettifyDate } from "@/lib/dates";
+import { getPlatformLabel } from "@/lib/platforms";
+import Badge from "@/components/Badge/Badge";
 import { PersonIcon } from "@radix-ui/react-icons";
 
 const DashboardPageHeader = ({ bot }: { bot: Bot }) => (

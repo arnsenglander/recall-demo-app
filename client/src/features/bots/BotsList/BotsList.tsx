@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import './styles.css';
-import { Bot } from '../../../../../types';
-import { getPlatformLabel } from '../../../lib/platforms';
-import { prettifyDate } from '../../../lib/dates';
+import { Bot } from 'types/bot';
+import { getPlatformLabel } from '@/lib/platforms';
+import { prettifyDate } from '@/lib/dates';
 
 interface BotListProps {
     bots: Bot[];

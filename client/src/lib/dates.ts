@@ -11,9 +11,8 @@ export function prettifyDate(date: string | Date): string {
 
 function prettifyDateString(date: string): string {
     return new Date(date).toLocaleString('en-US', {
-        weekday: 'long',
         year: 'numeric',
-        month: 'long',
+        month: 'short',
         day: 'numeric',
         hour: 'numeric',
         hour12: true,

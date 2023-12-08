@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog';
-import { CreateBotRequest } from '../../../../../types';
+import { CreateBotRequest } from 'types/bot';
 import './styles.css';
 import { 
   Root as FormRoot,

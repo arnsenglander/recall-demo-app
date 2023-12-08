@@ -1,7 +1,7 @@
-import { SentimentAnalysisResult } from '../../../../../types';
-import Chip from '../../../components/Chip/Chip';
-import { Intelligence } from '../../../hooks/intelligence';
-import { toTitleCase } from '../../../lib/strings';
+import { SentimentAnalysisResult } from 'types/intelligence';
+import Chip from '@/components/Chip/Chip';
+import { Intelligence } from '@/hooks/intelligence';
+import { toTitleCase } from '@/lib/strings';
 import './styles.css';
 
 interface SentimentAnalysisContainerProps {

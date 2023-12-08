@@ -1,8 +1,8 @@
-import useIntelligence, { Intelligence } from "../../../hooks/intelligence";
-import { Bot } from "../../../../../types";
-import { MagicWandIcon } from "@radix-ui/react-icons";
-import ErrorBoundary from "../../../components/ErrorBoundary/ErrorBoundary";
 import "./styles.css"
+import useIntelligence, { Intelligence } from "@/hooks/intelligence";
+import { Bot } from "types/bot";
+import { MagicWandIcon } from "@radix-ui/react-icons";
+import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 
 const SummaryContainer = ({ bot }: { bot: Bot }) => {
   const { intelligence, message, loading, error, createIntelligence } = useIntelligence(bot.id);

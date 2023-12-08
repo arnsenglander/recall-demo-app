@@ -1,8 +1,7 @@
-import React from 'react';
-import BotList from '../../features/bots/BotsList/BotsList';
-import { Bot } from '../../../../types';
-import { CreateBotRequest } from '../../../../types';
-import NewBotModal from '../../features/bots/NewBotModal/NewBotModal';
+import { useState } from 'react';
+import { Bot, CreateBotRequest } from 'types/bot';
+import BotList from '@/features/bots/BotsList/BotsList';
+import NewBotModal from '@/features/bots/NewBotModal/NewBotModal';
 import './styles.css';
 
 interface DashboardSidebarProps {
@@ -11,9 +10,9 @@ interface DashboardSidebarProps {
   onSendBot: (bot: CreateBotRequest) => Promise<void>;
 }
 
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ bots, onSelectedBot, onSendBot }) => {
+const DashboardSidebar = ({ bots, onSelectedBot, onSendBot }: DashboardSidebarProps) => {
 
-  const [modalOpen, setModalOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <aside className="sidebar">

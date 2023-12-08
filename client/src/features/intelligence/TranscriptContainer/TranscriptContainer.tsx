@@ -1,7 +1,7 @@
-import { Transcription, TranscriptionSegment } from '../../../lib/transcribe';
 import './styles.css';
-import { Bot } from '../../../../../types';
-import SummaryContainer from '../SummaryContainer/SummaryContainer';
+import { Transcription, TranscriptionSegment } from '@/lib/transcribe';
+import { Bot } from 'types/bot'
+import SummaryContainer from '@/features/intelligence/SummaryContainer/SummaryContainer';
 
 interface TranscriptContainerProps {
   bot: Bot;
