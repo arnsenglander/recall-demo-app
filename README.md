@@ -17,8 +17,9 @@ Some app ideas that could easily be built on top of this template:
 
 The repository is organized as a monorepo:
 
-- `/server`: Express server folder responsible for handling API requests, interacting with the database, and proxying the Recall API.
-- `/client`: React frontend folder containing the user interface for interacting with the intelligence data.
+- [`server/`](server/): Express server folder responsible for handling API requests, interacting with the database, and proxying the Recall API.
+- [`client/`](client/): React frontend folder containing the user interface for interacting with the intelligence data.
+- [`types/`](types/): Typescript definitions shared by the frontend application and server.
 
 _See each directory's README file for more in-depth information._
 
