@@ -53,7 +53,7 @@ const DashboardMainContent = ({ selected, bots, transcript }: DashboardMainConte
   }
 
   if (!transcript) {
-    return <p> Loading... </p>;
+    return <div className="botView"> Loading... </div>;
   }
   
   return (

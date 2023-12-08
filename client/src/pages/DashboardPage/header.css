@@ -1,0 +1,28 @@
+@import "@radix-ui/colors/mauve.css";
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  flex-direction: row;
+  background-color: var(--mauve-3);
+  color: var(--mauve-11);
+  border-radius: 6px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.downloadButtonIcon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.participantsBadgeContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
