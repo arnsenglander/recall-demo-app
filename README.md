@@ -1,6 +1,7 @@
 # Recall Demo App
 
-![Recall Demo App](https://res.cloudinary.com/dpyaz6mjr/image/upload/f_auto,q_auto/ycgqnbtn2rr9veeeksb0)
+
+![Recall Demo App](https://res.cloudinary.com/dpyaz6mjr/image/upload/f_auto,q_auto/vo9yhbfsbtvpiicirlgf)
 
 A demo app demonstrating how to easily extract, interact with, and analyze meeting data using the [Recall API](https://recallai.readme.io/reference/recall-overview).
 
