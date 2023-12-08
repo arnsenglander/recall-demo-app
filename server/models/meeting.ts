@@ -1,6 +1,12 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../db/config.ts";
 
+/**
+ * An example of a sequelize model definition using typescript.
+ * Functionally, this doesn't provide anything to our app, but serves
+ * as a reference for how to implement additional models for your own
+ * project.
+ */
 class Meeting extends Model {
   get id() {
     return this.getDataValue("id");
