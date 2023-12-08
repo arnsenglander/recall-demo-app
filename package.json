@@ -4,7 +4,8 @@
   "description": "Note Taker Bot App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/zakislaboratory/note-taker/issues"
   },
-  "homepage": "https://github.com/zakislaboratory/note-taker#readme"
+  "homepage": "https://github.com/zakislaboratory/note-taker#readme",
+  "devDependencies": {
+    "prettier": "^3.1.0"
+  }
 }
