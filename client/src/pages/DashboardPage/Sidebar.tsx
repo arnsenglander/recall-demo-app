@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Bot, CreateBotRequest } from 'types/bot';
-import BotList from '@/features/bots/BotsList/BotsList';
-import NewBotModal from '@/features/bots/NewBotModal/NewBotModal';
-import './styles.css';
+import { useState } from "react";
+import { Bot, CreateBotRequest } from "types/bot";
+import BotList from "@/features/bots/BotsList/BotsList";
+import NewBotModal from "@/features/bots/NewBotModal/NewBotModal";
+import "./styles.css";
 
 interface DashboardSidebarProps {
   bots: Bot[];
@@ -10,8 +10,11 @@ interface DashboardSidebarProps {
   onSendBot: (bot: CreateBotRequest) => Promise<void>;
 }
 
-const DashboardSidebar = ({ bots, onSelectedBot, onSendBot }: DashboardSidebarProps) => {
-
+const DashboardSidebar = ({
+  bots,
+  onSelectedBot,
+  onSendBot,
+}: DashboardSidebarProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -21,10 +24,13 @@ const DashboardSidebar = ({ bots, onSelectedBot, onSendBot }: DashboardSidebarPr
       <div className="sidebarList">
         <BotList bots={bots} onSelectBot={onSelectedBot} />
       </div>
-      <button className="newMeetingButton" onClick={() => setModalOpen(true)}>New Bot</button>
-      <NewBotModal 
-        open={modalOpen} onOpenChange={() => setModalOpen(!modalOpen)} 
-        onSendBot={onSendBot} 
+      <button className="newMeetingButton" onClick={() => setModalOpen(true)}>
+        New Bot
+      </button>
+      <NewBotModal
+        open={modalOpen}
+        onOpenChange={() => setModalOpen(!modalOpen)}
+        onSendBot={onSendBot}
       />
     </aside>
   );

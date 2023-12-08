@@ -1,68 +1,48 @@
-# Recall Demo App
+# Client-side App
 
-A demo app demonstrating how to easily extract, interact with, and analyze meeting data using the [Recall API](https://recallai.readme.io/reference/recall-overview).
+This is an example frontend app that can be used as a starting point for a wide variety of apps.
 
+Features
 
-While it doesn't comprehensively cover all of Recall's APIs, it provides an easily extendable starting point for a variety of applications.
+- On-demand meeting bot: Instantly send a bot to any meeting platform - all you need is the link!
+- AI transcription, summaries, and sentiment: Uses the intelligence capabilities of multiple industry-leading generative AI providers, all through Recall's unified API.
 
-Some app ideas that could easily be built on top of this template:
-- Real-time Sales coaching/assistants
-- Employee Training and Development
-- Content Creation & Marketing
-- Project management integration
-- Consumer facing personal productivity/time management
-- Customer support optimization
-  
-## Project Structure
+This is only a glimpse into what you can build on top of Recall. The possibilities are [endless](/README.md)
 
-The repository is organized as a monorepo:
+Application Structure
 
-- `/server`: Express server folder responsible for handling API requests, interacting with the database, and proxying the Recall API.
-- `/client`: React frontend folder containing the user interface for interacting with the intelligence data.
-
-*See each directory's README file for more in-depth information.*
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (version >= 16)
-
-### Installation & Configuration
-
-1. Clone the repository:
-
-   ```bash
-   git clone <your-repo-url.git>
-   ```
-
-2. Create a `.env` file in the `/server` directory.
-  *Note: For simplicity, you can duplicate the `/server/.env.example` file and name it `.env`*
-
-3. Set the `RECALL_API_KEY` environment variable to your Recall API key. 
-
-### Install dependencies
-Starting from the root of the project, navigate to the server directory and install dependencies:
-
-  ```bash
-  cd server && npm install
-  ```
-
-  Then, navigate to the client directory and install the react app's dependencies:
-  ```bash
-  cd .. && cd client && npm install
-  ```
-
-### Run the app
-
-At the root of the server directory, run:
-```bash
-npm run serve
+```
+src/
+|-- assets/
+|-- components/
+|-- features/
+|-- hooks/
+|-- lib/
+|-- pages/
 ```
 
-Open another terminal window. Now, at the root of the client directory, run:
+`assets/`: Static assets (images, fonts, etc)
+`components/`: Reusable UI components used across the app.
+`features/`: Organize components, styles, and logic specific to different features.
+`hooks/`: Custom React hooks used throughout the app.
+`lib/`: Utility functions and helper classes
+`pages/`: Top-level components representing different pages or views.
+
+## Setup
+
 ```bash
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
 ```
 
-The app is now running on your machine 🎉
+Your app is now live at http://localhost:5173/ 🎉
+
+Technologies Used
+
+- [React](https://react.dev/reference/react)
+- [Vite](https://vitejs.dev/guide/)
+- [Radix UI](https://www.radix-ui.com/primitives/docs/overview/introduction) - UI primitives and icons.
+  - Feel free to replace any of the UI primitives with your favorite UI framework or library!

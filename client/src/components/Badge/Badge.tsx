@@ -1,15 +1,15 @@
-import './styles.css'
+import "./styles.css";
 
 interface BadgeProps {
-    label: string;
-    icon?: React.ReactNode;
+  label: string;
+  icon?: React.ReactNode;
 }
 
 const Badge = ({ label, icon }: BadgeProps) => (
-    <div className="badge">
-        <div className="badgeIconContainer">{icon}</div>
-        <div className="badgeLabel">{label}</div>
-    </div>
+  <div className="badge">
+    <div className="badgeIconContainer">{icon}</div>
+    <div className="badgeLabel">{label}</div>
+  </div>
 );
 
-export default Badge
+export default Badge;

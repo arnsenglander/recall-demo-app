@@ -1,19 +1,20 @@
-import "./styles.css"
+import "./styles.css";
 import useIntelligence, { Intelligence } from "@/hooks/intelligence";
 import { Bot } from "types/bot";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 import ErrorBoundary from "@/components/ErrorBoundary/ErrorBoundary";
 
 const SummaryContainer = ({ bot }: { bot: Bot }) => {
-  const { intelligence, message, loading, error, createIntelligence } = useIntelligence(bot.id);
+  const { intelligence, message, loading, error, createIntelligence } =
+    useIntelligence(bot.id);
 
   return (
-    <ErrorBoundary >
+    <ErrorBoundary>
       <div className="intelligenceContainer">
         <div className="intelligenceTitle">Summary</div>
-        { loading && <LoadingState />}
-        { message && <MessageSection message={message} />}
-        { intelligence && <IntelligenceBody intelligence={intelligence} />}
+        {loading && <LoadingState />}
+        {message && <MessageSection message={message} />}
+        {intelligence && <IntelligenceBody intelligence={intelligence} />}
         <div className="intelligenceBody">
           {!intelligence && !loading && !error && !message && (
             <CreateButton onClick={() => createIntelligence(bot.id)} />
@@ -24,7 +25,9 @@ const SummaryContainer = ({ bot }: { bot: Bot }) => {
   );
 };
 
-const LoadingState = () => <div className="intelligenceLoading">Loading...</div>;
+const LoadingState = () => (
+  <div className="intelligenceLoading">Loading...</div>
+);
 
 const MessageSection = ({ message }: { message: string }) => (
   <div className="intelligenceLoading">{message}</div>
@@ -33,7 +36,9 @@ const MessageSection = ({ message }: { message: string }) => (
 const IntelligenceBody = ({ intelligence }: { intelligence: Intelligence }) => {
   return (
     <div className="intelligenceBody">
-      {intelligence && <div className="intelligenceSummary">{intelligence?.getSummary()}</div>}
+      {intelligence && (
+        <div className="intelligenceSummary">{intelligence?.getSummary()}</div>
+      )}
     </div>
   );
 };
