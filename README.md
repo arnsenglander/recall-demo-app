@@ -3,12 +3,16 @@
 
 ![Recall Demo App](https://res.cloudinary.com/dpyaz6mjr/image/upload/f_auto,q_auto/vo9yhbfsbtvpiicirlgf)
 
+<br />
+
 A demo app demonstrating how to easily extract, interact with, and analyze meeting data using the [Recall API](https://recallai.readme.io/reference/recall-overview).
+  
 
 Features:
 - On-demand meeting bot: Instantly send a bot to any meeting platform - all you need is the link!
 - AI transcription, summaries, and sentiment: Uses the intelligence capabilities of multiple industry-leading generative AI providers, all through Recall's unified API.
 
+<br/>
 
 While this app doesn't comprehensively cover all of Recall's APIs, it provides an easily extendable starting point for a variety of applications. 
 
@@ -21,6 +25,8 @@ Some app ideas that could easily be built on top of this template:
 - Project management integration
 - Consumer facing personal productivity/time management
 - Customer support optimization
+  
+<br/>
 
 ## Project Structure
 
@@ -32,11 +38,15 @@ The repository is organized as a monorepo:
 
 _See each directory's README file for more in-depth information._
 
+<br/>
+
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js (version >= 16)
+
+<br/>
 
 ### Installation & Configuration
 
@@ -52,6 +62,8 @@ _See each directory's README file for more in-depth information._
 
 4. Set the `RECALL_API_KEY` environment variable to your Recall API key.
 
+<br/>
+
 ### Install dependencies
 
 Starting from the root of the project, navigate to the server directory and install dependencies:
@@ -66,6 +78,8 @@ Then, navigate to the client directory and install the react app's dependencies:
 cd .. && cd client && npm install
 ```
 
+<br/>
+
 ### Run the app
 
 At the root of the server directory, run:
@@ -79,5 +93,7 @@ Open another terminal window. Now, at the root of the client directory, run:
 ```bash
 npm run dev
 ```
+
+<br/>
 
 The app is now running on http://localhost:5173/ 🎉
