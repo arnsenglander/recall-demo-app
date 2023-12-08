@@ -2,11 +2,6 @@
 
 This is an example frontend app that can be used as a starting point for a wide variety of apps.
 
-Features
-
-- On-demand meeting bot: Instantly send a bot to any meeting platform - all you need is the link!
-- AI transcription, summaries, and sentiment: Uses the intelligence capabilities of multiple industry-leading generative AI providers, all through Recall's unified API.
-
 This is only a glimpse into what you can build on top of Recall. The possibilities are [endless](/README.md)
 
 Application Structure

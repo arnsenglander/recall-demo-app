@@ -1,8 +1,16 @@
 # Recall Demo App
 
+![Recall Demo App](https://res.cloudinary.com/dpyaz6mjr/image/upload/f_auto,q_auto/ycgqnbtn2rr9veeeksb0)
+
 A demo app demonstrating how to easily extract, interact with, and analyze meeting data using the [Recall API](https://recallai.readme.io/reference/recall-overview).
 
-While it doesn't comprehensively cover all of Recall's APIs, it provides an easily extendable starting point for a variety of applications.
+Features:
+- On-demand meeting bot: Instantly send a bot to any meeting platform - all you need is the link!
+- AI transcription, summaries, and sentiment: Uses the intelligence capabilities of multiple industry-leading generative AI providers, all through Recall's unified API.
+
+
+While this app doesn't comprehensively cover all of Recall's APIs, it provides an easily extendable starting point for a variety of applications. 
+
 
 Some app ideas that could easily be built on top of this template:
 
