@@ -26,6 +26,7 @@ const DashboardPage = () => {
     if (selectedBot) {
       fetchTranscript(selectedBot.id);
     }
+    
   }, [selectedBot]);
 
   const handleSelectedBot = (bot: Bot) => setSelectedBot(bot);
@@ -41,13 +42,14 @@ const DashboardPage = () => {
         onSelectedBot={handleSelectedBot}
         onSendBot={handleCreateBot}
       />
-      <div className="content">
+      {/* <div className="content">
         <DashboardMainContent
           selected={selectedBot}
           bots={bots}
           transcript={transcript}
         />
-      </div>
+      </div> */}
+      
     </div>
   );
 };

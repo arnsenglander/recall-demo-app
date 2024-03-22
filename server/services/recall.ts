@@ -5,7 +5,7 @@ import {
   ListJobsOpts,
   ListJobsResponse,
 } from "../../types/intelligence.ts";
-import { Bot, CreateBotRequest } from "./../../types/bot.ts";
+import { Bot, CreateBotRequest, ListBotsResponse } from "./../../types/bot.ts";
 import { RawTranscriptionData } from "./../../types/index.ts";
 import fetch from "node-fetch";
 
@@ -47,7 +47,7 @@ class RecallApi {
   }
 
   // Pagination is supported in the Recall API for large number of bots.
-  async listBots(): Promise<Bot[]> {
+  async listBots(): Promise<ListBotsResponse> {
     const resp = await fetch(this.BASE_URL + "/bot", {
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,9 @@ class RecallApi {
       throw new Error("Error listing bots");
     }
 
-    const data = (await resp.json()) as Bot[];
+    const data = (await resp.json()) as ListBotsResponse;
+    
+    
     return data;
   }
 

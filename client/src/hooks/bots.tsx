@@ -14,10 +14,12 @@ const useBots = (): BotsHook => {
   const [error, setError] = useState<string | null>(null);
 
   async function fetchBots() {
+    console.log("fetchBots");
     setLoading(true);
     try {
       const response = await fetch("/api/bots");
       const data = (await response.json()) as ListBotsResponse;
+      console.log("data :", data);
       setBots(data.bots.results);
     } catch (error) {
       console.error(`Error fetching bots: ${error}`);

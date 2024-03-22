@@ -13,12 +13,11 @@ export interface CreateBotRequest {
 }
 
 export interface ListBotsResponse {
-  bots: {
     count: number;
     next: string | null;
     previous: string | null;
     results: Bot[];
-  };
+  
 }
 
 export interface Bot {

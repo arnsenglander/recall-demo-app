@@ -68,9 +68,10 @@ const BotListItem = ({
       <BotImage bot={bot} />
       <div style={{ flex: 1 }}>
         <div className="botItemTitle">
-          {getPlatformLabel(bot.meeting_url.platform)}
+          
+          {bot.meeting_url?.platform ? getPlatformLabel(bot.meeting_url.platform) : 'Unknown Platform'}
         </div>
-        <div className="botItemSubtext">{prettifyDate(bot.join_at)}</div>
+        {bot.join_at && <div className="botItemSubtext">{prettifyDate(bot.join_at)}</div>}
       </div>
     </div>
   );
@@ -90,7 +91,7 @@ const BotImage = ({ bot }: { bot: Bot }) => {
     }
   };
 
-  const platform = bot.meeting_url.platform;
+  const platform = bot.meeting_url?.platform;
   const url = imageUrl(platform);
 
   if (!url) {
