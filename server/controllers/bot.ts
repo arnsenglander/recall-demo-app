@@ -47,13 +47,8 @@ export const deleteAllBots: RequestHandler = async (
   const recallApi = new RecallApi(process.env.RECALL_API_KEY ?? "");
   try {
     const resp = await recallApi.listBots();
-    console.log('keys:', Object.keys(resp));
+  
     const results = resp.results;
-    
-    
-    
-    console.log('process.env.RECALL_API_KEY :', process.env.RECALL_API_KEY);
-
     
     
     const deletePromises = results.map(bot => {
